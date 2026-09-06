@@ -8,7 +8,10 @@
     "emitDecoratorMetadata": true,
     "declaration": true,
     "outDir": "./dist",
+    "rootDir": "./src",
     "baseUrl": "./",
+    "types": ["node"],
+    "ignoreDeprecations": "6.0",
     "incremental": true,
     "strictNullChecks": true,
     "noImplicitAny": true
