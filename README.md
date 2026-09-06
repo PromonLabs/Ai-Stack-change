@@ -1,7 +1,9 @@
 # Ai-Stack-change — OrgPortal on Next.js + NestJS
 
 Full rewrite of **My Promon / OrgPortal** from Laravel 11 (Blade) + Spring Boot 3.2
-(Java) onto **Next.js 14 + NestJS + Prisma**, in TypeScript end to end.
+(Java) onto **Next.js + NestJS + Prisma**, in TypeScript end to end. Exact pinned
+versions are in [`docs/adr/0001-toolchain-versions.md`](docs/adr/0001-toolchain-versions.md)
+(Next.js 16.3.4, React 19.2.8, NestJS 12, TypeScript 6.0.3, Prisma 7.10.0, Tailwind 4.3.3).
 
 The plan of record is [`docs/MIGRATION_BLUEPRINT.md`](docs/MIGRATION_BLUEPRINT.md).
 Read that first — it defines the 10 phases, the module inventory, and the
@@ -36,22 +38,37 @@ tracked in [`docs/phase-0/security-baseline.md`](docs/phase-0/security-baseline.
 
 ```
 apps/
-  web/     Next.js 14 (App Router) — React 18, TypeScript, Tailwind
-  api/     NestJS — modules/controllers/providers, Prisma
+  web/     Next.js (App Router) — React, TypeScript, Tailwind v4. App shell scaffolded.
+  api/     NestJS — modules/controllers/providers. Skeleton + health check scaffolded;
+           Prisma schema is intentionally a datasource/generator stub (see prisma/schema.prisma)
+           until it can be introspected from a real database — never hand-modelled.
 packages/
-  crypto/  Ported zero-knowledge vault crypto (framework-agnostic TypeScript)
+  crypto/  Ported zero-knowledge vault crypto (framework-agnostic TypeScript) — not yet
+           scaffolded, planned for phase 2.
 docs/
   MIGRATION_BLUEPRINT.md   The plan
   phase-0/                 Grounded audits of the source systems (frontend-audit.md,
                            backend-audit.md, security-baseline.md)
 ```
 
+## Getting started
+
+```
+npm install
+npm run dev:web    # Next.js dev server
+npm run dev:api    # NestJS dev server (needs apps/api/.env — copy from .env.example)
+```
+
+Both apps currently only expose a health check (`GET /` on web, `GET /api/health` on
+both web and api) — there is no auth, no database wiring, and no UI beyond a
+placeholder page yet. See `docs/MIGRATION_BLUEPRINT.md` §06 (Phase 1) for what's next.
+
 ## Status
 
 | Phase | State |
 |---|---|
-| 0 · Discovery & parity baseline | in progress |
-| 1 · Platform foundation | not started |
+| 0 · Discovery & parity baseline | in progress — frontend + backend audits and security baseline done; still open: Entra ID app registration details, a staging DB snapshot for Prisma introspection, sign-off that `UI_MODERNIZATION_PLAN.md` is superseded |
+| 1 · Platform foundation | in progress — app shell (`apps/web`) and API skeleton (`apps/api`) scaffolded with health checks; auth, RBAC, design system, and DB wiring not started |
 | 2 · Password Manager & Policy Management | not started |
 | 3 · Core operations | not started |
 | 4 · Resource & time modules | not started |
