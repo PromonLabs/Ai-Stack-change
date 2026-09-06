@@ -1,0 +1,26 @@
+// Deliberately no models yet.
+//
+// docs/MIGRATION_BLUEPRINT.md §04/§06 and docs/phase-0/backend-audit.md Part 3
+// are explicit: this schema must be produced by `prisma db pull` against a
+// database that has had OrgPortalBackend's Flyway migrations V1-V73 applied
+// (see docs/phase-0/backend-audit.md "Full Flyway migration inventory" for
+// why hand-modeling 73 migrations' worth of tables — including the vault
+// zero-knowledge schema — is explicitly out of scope: V35/V41 and the
+// orphaned V69 vault_send table are exactly the kind of drift that reading
+// migration SQL by eye would get wrong).
+//
+// Next step (blocked on a staging DB snapshot — see README.md phase 0
+// checklist): point DATABASE_URL at that database and run
+//   npx prisma db pull
+// then commit the generated models as their own change, reviewed against
+// docs/phase-0/backend-audit.md Part 3's field-classification table before
+// anything else builds on top of it.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
