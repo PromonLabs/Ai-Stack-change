@@ -1,0 +1,29 @@
+{
+  "name": "ai-stack-change",
+  "version": "0.0.0",
+  "private": true,
+  "description": "OrgPortal rewritten on Next.js + NestJS + Prisma. See docs/MIGRATION_BLUEPRINT.md",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "dev:web": "npm run dev --workspace @orgportal/web",
+    "dev:api": "npm run dev --workspace @orgportal/api",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md,css}\""
+  },
+  "devDependencies": {
+    "prettier": "3.6.2",
+    "typescript": "6.0.3"
+  }
+}

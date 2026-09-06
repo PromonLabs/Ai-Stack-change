@@ -42,7 +42,8 @@ packages/
   crypto/  Ported zero-knowledge vault crypto (framework-agnostic TypeScript)
 docs/
   MIGRATION_BLUEPRINT.md   The plan
-  phase-0/                 Grounded audits of the source systems
+  phase-0/                 Grounded audits of the source systems (frontend-audit.md,
+                           backend-audit.md, security-baseline.md)
 ```
 
 ## Status
